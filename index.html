@@ -134,7 +134,7 @@ fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
         card.innerHTML = `
           <img src="${movie.thumbnail}" alt="${movie.title}">
           <h4>${movie.title}</h4>
-          <a href="${movie.video}" target="_blank">▶ Watch</a>
+          <a href="javascript:void(0);" onclick="playVideo('${movie.video}')">▶ Watch Now</a>
         `;
         container.appendChild(card);
       } else {
@@ -146,6 +146,27 @@ fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
     console.error("❌ Error loading movies:", error);
   });
   function playVideo(url) {
+  // Show interstitial ad first
+  if (typeof ezStandAlone !== "undefined") {
+    ezStandAlone.cmd.push(function () {
+      ezStandAlone.defineSlot('/interstitial', {
+        type: 'interstitial',
+        zoneId: YOUR_ZONE_ID
+      }).display();
+
+      // After delay (ad closes or fixed time), play video
+      setTimeout(() => {
+        showVideo(url);
+      }, 4000); // ⏱ You can increase this if ad takes longer
+    });
+  } else {
+    // Fallback: directly show video
+    showVideo(url);
+  }
+}
+
+// ⬇️ Separate function to display iframe
+function showVideo(url) {
   const playerSection = document.getElementById("video-player");
   playerSection.innerHTML = `
     <h2>Now Playing</h2>
@@ -159,7 +180,6 @@ fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
     </iframe>
   `;
   playerSection.scrollIntoView({ behavior: 'smooth' });
-    <a href="javascript:void(0);" onclick="playVideo('${movie.video}')">▶ Watch Now</a>
 }
 </script>
 </body>
