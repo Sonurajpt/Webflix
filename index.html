@@ -134,7 +134,7 @@ fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
         card.innerHTML = `
           <img src="${movie.thumbnail}" alt="${movie.title}">
           <h4>${movie.title}</h4>
-          <a href="javascript:void(0);" onclick="playVideo('${movie.video}')">▶ Watch Now</a>
+          <button onclick="playVideo('${movie.video}')">▶ Watch</button>
         `;
         container.appendChild(card);
       } else {
