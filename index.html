@@ -133,6 +133,9 @@
   <div id="movie-container"></div>
 
 <script>
+let selectedVideoUrl = "";
+
+// Fetch Movies and Display Cards
 fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
   .then(res => res.json())
   .then(data => {
@@ -144,7 +147,7 @@ fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
         const card = document.createElement("div");
         card.className = "movie-card";
         card.innerHTML = `
-          <img src="${movie.thumbnail}" alt="${movie.title}" onclick="playVideo('${movie.video}')" style="cursor:pointer;">
+          <img src="${movie.thumbnail}" alt="${movie.title}" onclick='openModal(${JSON.stringify(movie)})' style="cursor:pointer;">
           <h4>${movie.title}</h4>
         `;
         container.appendChild(card);
@@ -157,25 +160,42 @@ fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
     console.error("❌ Error loading movies:", error);
   });
 
-function playVideo(url) {
-  // Show interstitial ad first (Montage)
+// 🧩 Modal Open
+function openModal(movie) {
+  selectedVideoUrl = movie.video;
+  document.getElementById("modal-poster").src = movie.thumbnail;
+  document.getElementById("modal-title").innerText = movie.title;
+  document.getElementById("modal-info").innerText = `${movie.year || "2025"} • ${movie.duration || "2h"} • HD`;
+  document.getElementById("modal-description").innerText = movie.description || "No description available.";
+  document.getElementById("movie-modal").style.display = "flex";
+}
+
+// 🧩 Modal Close
+function closeModal() {
+  document.getElementById("movie-modal").style.display = "none";
+}
+
+// ▶ Play With Ad
+function playWithAd() {
+  closeModal(); // hide modal
+
   if (typeof ezStandAlone !== "undefined") {
     ezStandAlone.cmd.push(function () {
       ezStandAlone.defineSlot('/interstitial', {
         type: 'interstitial',
-        zoneId: 1234567 // 🔁 Replace with your real Montage Zone ID
+        zoneId: 1234567  // Replace with your Montage Zone ID
       }).display();
 
-      // Delay iframe load until ad shown
       setTimeout(() => {
-        showVideo(url);
-      }, 4000); // Adjust ad wait time if needed
+        showVideo(selectedVideoUrl);
+      }, 4000); // Delay in milliseconds
     });
   } else {
-    showVideo(url);
+    showVideo(selectedVideoUrl);
   }
 }
 
+// ▶ Show Video in Player Section
 function showVideo(url) {
   const playerSection = document.getElementById("video-player");
   playerSection.innerHTML = `
