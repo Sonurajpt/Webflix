@@ -132,9 +132,8 @@ fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
         const card = document.createElement("div");
         card.className = "movie-card";
         card.innerHTML = `
-          <img src="${movie.thumbnail}" alt="${movie.title}">
+          <img src="${movie.thumbnail}" alt="${movie.title}" onclick="playVideo('${movie.video}')" style="cursor:pointer;">
           <h4>${movie.title}</h4>
-          <button onclick="playVideo('${movie.video}')">▶ Watch</button>
         `;
         container.appendChild(card);
       } else {
@@ -145,27 +144,26 @@ fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
   .catch(error => {
     console.error("❌ Error loading movies:", error);
   });
-  function playVideo(url) {
-  // Show interstitial ad first
+
+function playVideo(url) {
+  // Show interstitial ad first (Montage)
   if (typeof ezStandAlone !== "undefined") {
     ezStandAlone.cmd.push(function () {
       ezStandAlone.defineSlot('/interstitial', {
         type: 'interstitial',
-        zoneId: YOUR_ZONE_ID
+        zoneId: 1234567 // 🔁 Replace with your real Montage Zone ID
       }).display();
 
-      // After delay (ad closes or fixed time), play video
+      // Delay iframe load until ad shown
       setTimeout(() => {
         showVideo(url);
-      }, 4000); // ⏱ You can increase this if ad takes longer
+      }, 4000); // Adjust ad wait time if needed
     });
   } else {
-    // Fallback: directly show video
     showVideo(url);
   }
 }
 
-// ⬇️ Separate function to display iframe
 function showVideo(url) {
   const playerSection = document.getElementById("video-player");
   playerSection.innerHTML = `
