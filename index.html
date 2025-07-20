@@ -165,6 +165,10 @@ fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
     console.error("❌ Error loading movies:", error);
   });
 
+  function handleCardClick(img) {
+  const movieData = JSON.parse(img.getAttribute("data-movie").replace(/&apos;/g, "'"));
+  openModal(movieData);
+}
 // 🧩 Modal Open
 function openModal(movie) {
   selectedVideoUrl = movie.video;
