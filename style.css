@@ -128,29 +128,25 @@ nav ul li a:hover {
 }
 
 /* Trending Section */
-.trending {
-  padding: 30px;
-}
-
-.movie-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 20px;
+.movie-row {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding: 10px;
 }
 
 .movie-card {
+  min-width: 160px;
+  background: #222;
+  color: white;
+  border-radius: 8px;
+  padding: 10px;
+  flex-shrink: 0;
   text-align: center;
 }
-
 .movie-card img {
   width: 100%;
-  border-radius: 8px;
-  height: 200px;
-  object-fit: cover;
-}
-
-.movie-card p {
-  margin-top: 8px;
+  border-radius: 5px;
 }
 
 /* Search & Filter */
