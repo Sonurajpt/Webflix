@@ -122,21 +122,24 @@
 
 <script>
 fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
-  .then(response => response.json())
+  .then(res => res.json())
   .then(data => {
-    const container = document.getElementById("movie-container");
-    container.innerHTML = ""; // Clear default content
-
     data.movies.forEach(movie => {
-      const div = document.createElement("div");
-      div.className = "movie-card";
-      div.innerHTML = `
-        <img src="${movie.thumbnail}" alt="${movie.title}" style="width:100%; border-radius:10px;">
-        <h3>${movie.title}</h3>
-        <p><strong>Section:</strong> ${movie.section}</p>
-        <a href="${movie.video}" target="_blank">▶ Watch Now</a>
-      `;
-      container.appendChild(div);
+      const sectionId = "section-" + movie.section.toLowerCase().replace(/\s+/g, '');
+      const container = document.getElementById(sectionId);
+
+      if (container) {
+        const card = document.createElement("div");
+        card.className = "movie-card";
+        card.innerHTML = `
+          <img src="${movie.thumbnail}" alt="${movie.title}">
+          <h4>${movie.title}</h4>
+          <a href="${movie.video}" target="_blank">▶ Watch</a>
+        `;
+        container.appendChild(card);
+      } else {
+        console.warn("⚠ Section container not found for:", sectionId);
+      }
     });
   })
   .catch(error => {
