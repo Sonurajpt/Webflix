@@ -30,3 +30,19 @@ function filterMovies() {
 
 searchInput.addEventListener('input', filterMovies);
 filterSelect.addEventListener('change', filterMovies);
+
+let selectedVideoUrl = "";
+
+function openModal(movie) {
+  selectedVideoUrl = movie.video;
+  document.getElementById("modal-poster").src = movie.thumbnail;
+  document.getElementById("modal-title").innerText = movie.title;
+  document.getElementById("modal-info").innerText = `${movie.year || "2025"} • ${movie.duration || "2h"} • HD`;
+  document.getElementById("modal-description").innerText = movie.description || "No description available.";
+  
+  document.getElementById("movie-modal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("movie-modal").style.display = "none";
+}
