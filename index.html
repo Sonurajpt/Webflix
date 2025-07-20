@@ -89,5 +89,37 @@
       <div class="movie-card"><img src="posters/mirzapur.jpg" alt="Mirzapur" /><p>Mirzapur</p></div>
       <div class="movie-card"><img src="posters/scam1992.jpg" alt="Scam 1992" /><p>Scam 1992</p></div>
     </div>
-  </section>  <script src="script.js"></script></body>
+  </section>  <script src="script.js">
+
+    <div id="movie-container"></div>
+
+<script>
+fetch('https://raw.githubusercontent.com/Sonurajpt/Webflix/main/movies.json')
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById("movie-container");
+
+    data.movies.forEach(movie => {
+      const div = document.createElement("div");
+      div.style.margin = "20px";
+      div.style.border = "1px solid #ccc";
+      div.style.padding = "10px";
+      div.style.borderRadius = "10px";
+      div.style.maxWidth = "200px";
+      div.style.display = "inline-block";
+      div.style.verticalAlign = "top";
+      div.innerHTML = `
+        <img src="${movie.thumbnail}" alt="${movie.title}" style="width:100%; border-radius:10px;">
+        <h3 style="font-size:16px;">${movie.title}</h3>
+        <p><strong>Section:</strong> ${movie.section}</p>
+        <a href="${movie.video}" target="_blank">▶ Watch Now</a>
+      `;
+      container.appendChild(div);
+    });
+  })
+  .catch(error => {
+    console.error("Error loading movies.json:", error);
+  });
+</script>
+  </script></body>
 </html>
