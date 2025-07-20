@@ -66,19 +66,25 @@
       <option value="es">Spanish</option>
     </select>
   </section>  <!-- Trending Section -->  <section class="trending" id="trending">
-    <h2>Trending Now</h2>
+    <h2>Trending</h2>
     <div class="movie-grid">
       <div class="movie-card"><img src="posters/walking-dead.jpg" alt="The Walking Dead" /><p>The Walking Dead</p></div>
       <div class="movie-card"><img src="posters/solo.jpg" alt="Solo" /><p>Solo</p></div>
     </div>
   </section>  <!-- Sci-Fi Section -->  <section class="sci-fi" id="sci-fi">
-    <h2>Sci-Fi Movies</h2>
+    <h2>Sci-Fi</h2>
     <div class="movie-grid">
       <div class="movie-card"><img src="posters/avatar.jpg" alt="Avatar" /><p>Avatar</p></div>
       <div class="movie-card"><img src="posters/interstellar.jpg" alt="Interstellar" /><p>Interstellar</p></div>
     </div>
+    </section>  <!-- top rated Section -->  <section class="top rated" id="top rated">
+    <h2>top rated</h2>
+    <div class="movie-grid">
+      <div class="movie-card"><img src="posters/captain-marvel.jpg" alt="Captain Marvel" /><p>Captain Marvel</p></div>
+      <div class="movie-card"><img src="posters/ironman.jpg" alt="Iron Man" /><p>Iron Man</p></div>
+    </div>
   </section>  <!-- Hollywood Section -->  <section class="hollywood" id="hollywood">
-    <h2>Hollywood Movies</h2>
+    <h2>Hollywood</h2>
     <div class="movie-grid">
       <div class="movie-card"><img src="posters/captain-marvel.jpg" alt="Captain Marvel" /><p>Captain Marvel</p></div>
       <div class="movie-card"><img src="posters/ironman.jpg" alt="Iron Man" /><p>Iron Man</p></div>
@@ -89,28 +95,42 @@
       <div class="movie-card"><img src="posters/mirzapur.jpg" alt="Mirzapur" /><p>Mirzapur</p></div>
       <div class="movie-card"><img src="posters/scam1992.jpg" alt="Scam 1992" /><p>Scam 1992</p></div>
     </div>
+    </section>  <!-- Hollywood Section -->  <section class="Bollywood" id="Bollywood">
+    <h2>Bollywood movies</h2>
+    <div class="movie-grid">
+      <div class="movie-card"><img src="posters/captain-marvel.jpg" alt="Captain Marvel" /><p>Captain Marvel</p></div>
+      <div class="movie-card"><img src="posters/ironman.jpg" alt="Iron Man" /><p>Iron Man</p></div>
+    </div>
+      </section>  <!-- Hollywood Section -->  <section class="South indian" id="South indian">
+    <h2>South indian</h2>
+    <div class="movie-grid">
+      <div class="movie-card"><img src="posters/captain-marvel.jpg" alt="Captain Marvel" /><p>Captain Marvel</p></div>
+      <div class="movie-card"><img src="posters/ironman.jpg" alt="Iron Man" /><p>Iron Man</p></div>
+    </div>
+        </section>  <!-- Hollywood Section -->  <section class="Tv show/drama" id="Tv show/drama">
+    <h2>Tv show/drama</h2>
+    <div class="movie-grid">
+      <div class="movie-card"><img src="posters/captain-marvel.jpg" alt="Captain Marvel" /><p>Captain Marvel</p></div>
+      <div class="movie-card"><img src="posters/ironman.jpg" alt="Iron Man" /><p>Iron Man</p></div>
+    </div>
   </section>  <script src="script.js">
-
-    <div id="movie-container"></div>
+  </script>
+<!--//fatch movie//-->
+  <div id="movie-container"></div>
 
 <script>
 fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
   .then(response => response.json())
   .then(data => {
     const container = document.getElementById("movie-container");
+    container.innerHTML = ""; // Clear default content
 
     data.movies.forEach(movie => {
       const div = document.createElement("div");
-      div.style.margin = "20px";
-      div.style.border = "1px solid #ccc";
-      div.style.padding = "10px";
-      div.style.borderRadius = "10px";
-      div.style.maxWidth = "200px";
-      div.style.display = "inline-block";
-      div.style.verticalAlign = "top";
+      div.className = "movie-card";
       div.innerHTML = `
         <img src="${movie.thumbnail}" alt="${movie.title}" style="width:100%; border-radius:10px;">
-        <h3 style="font-size:16px;">${movie.title}</h3>
+        <h3>${movie.title}</h3>
         <p><strong>Section:</strong> ${movie.section}</p>
         <a href="${movie.video}" target="_blank">▶ Watch Now</a>
       `;
@@ -118,8 +138,8 @@ fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
     });
   })
   .catch(error => {
-    console.error("Error loading movies.json:", error);
+    console.error("❌ Error loading movies:", error);
   });
 </script>
-  </script></body>
+</body>
 </html>
