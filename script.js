@@ -1,0 +1,32 @@
+// Responsive Navbar Toggle
+const toggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('nav ul');
+
+toggle.addEventListener('click', () => {
+  navLinks.classList.toggle('show');
+});
+
+// Search & Filter Movies
+const searchInput = document.getElementById('searchInput');
+const filterSelect = document.getElementById('categoryFilter');
+const movieCards = document.querySelectorAll('.movie-card');
+
+function filterMovies() {
+  const searchText = searchInput.value.toLowerCase();
+  const filterValue = filterSelect.value;
+  
+  movieCards.forEach(card => {
+    const title = card.textContent.toLowerCase();
+    const matchesSearch = title.includes(searchText);
+    const matchesFilter = !filterValue || card.classList.contains(filterValue);
+    
+    if (matchesSearch && matchesFilter) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+searchInput.addEventListener('input', filterMovies);
+filterSelect.addEventListener('change', filterMovies);
