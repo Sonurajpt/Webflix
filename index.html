@@ -158,22 +158,30 @@ fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
   });
 
 function playWithAd() {
-  closeModal(); // Hide modal first
+  closeModal(); // Hide the modal first
 
   // Inject Montage Ad
   const adScript = document.createElement('script');
   adScript.src = 'https://groleegni.net/401/9579411';
 
+  adScript.onload = () => {
+    console.log("✅ Montage ad script loaded.");
+  };
+
+  adScript.onerror = () => {
+    console.warn("❌ Montage ad script failed to load.");
+  };
+
   try {
     (document.body || document.documentElement).appendChild(adScript);
   } catch (e) {
-    console.warn("❌ Ad script injection failed", e);
+    console.warn("❌ Ad script injection error:", e);
   }
 
-  // Wait 4 sec then play video
+  // ⏱ Wait 4 seconds before playing the video
   setTimeout(() => {
     showVideo(selectedVideoUrl);
-  }, 4000); // Wait time for ad
+  }, 4000);
 }
 
 function showVideo(url) {
