@@ -140,25 +140,25 @@ let selectedVideoUrl = "";
 fetch('https://cdn.jsdelivr.net/gh/Sonurajpt/Ktmovies@main/Movies.json')
   .then(res => res.json())
   .then(data => {
+    console.log("📦 Movies loaded:", data); // Debug log
     data.movies.forEach(movie => {
       const sectionId = "section-" + movie.section.toLowerCase().replace(/\s+/g, '');
       const container = document.getElementById(sectionId);
-
+      
       if (container) {
-  const card = document.createElement("div");
-  card.className = "movie-card";
-  card.innerHTML = `
-    <img src="${movie.thumbnail}" 
-         alt="${movie.title}" 
-         style="cursor:pointer;"
-         data-movie='${JSON.stringify(movie).replace(/'/g, "&apos;")}'
-         onclick="handleCardClick(this)">
-    <h4>${movie.title}</h4>
-  `;
-  container.appendChild(card);
-}
+        const card = document.createElement("div");
+        card.className = "movie-card";
+        card.innerHTML = `
+          <img src="${movie.thumbnail}" 
+               alt="${movie.title}" 
+               style="cursor:pointer;"
+               data-movie='${JSON.stringify(movie).replace(/'/g, "&apos;")}'
+               onclick="handleCardClick(this)">
+          <h4>${movie.title}</h4>
+        `;
+        container.appendChild(card);
       } else {
-        console.warn("⚠ Section container not found for:", sectionId);
+        console.warn("⚠ Section not found for:", sectionId);
       }
     });
   })
