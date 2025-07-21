@@ -137,7 +137,7 @@ let selectedVideoUrl = "";
 
   
 // Fetch Movies and Display Cards
-fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
+fetch('https://cdn.jsdelivr.net/gh/Sonurajpt/Ktmovies@main/Movies.json')
   .then(res => res.json())
   .then(data => {
     data.movies.forEach(movie => {
