@@ -1,6 +1,5 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <script>(function(d,z,s){s.src='https://'+d+'/401/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('groleegni.net',9579411,document.createElement('script'))</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KTMovies</title>
@@ -156,33 +155,6 @@ fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
   .catch(error => {
     console.error("❌ Error loading movies:", error);
   });
-
-function playWithAd() {
-  closeModal(); // Hide the modal first
-
-  // Inject Montage Ad
-  const adScript = document.createElement('script');
-  adScript.src = 'https://groleegni.net/401/9579411';
-
-  adScript.onload = () => {
-    console.log("✅ Montage ad script loaded.");
-  };
-
-  adScript.onerror = () => {
-    console.warn("❌ Montage ad script failed to load.");
-  };
-
-  try {
-    (document.body || document.documentElement).appendChild(adScript);
-  } catch (e) {
-    console.warn("❌ Ad script injection error:", e);
-  }
-
-  // ⏱ Wait 4 seconds before playing the video
-  setTimeout(() => {
-    showVideo(selectedVideoUrl);
-  }, 
-}
 
 function showVideo(url) {
   const playerSection = document.getElementById("video-player");
