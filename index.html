@@ -145,9 +145,15 @@ fetch('https://raw.githubusercontent.com/Sonurajpt/Ktmovies/main/Movies.json')
         const card = document.createElement("div");
         card.className = "movie-card";
         card.innerHTML = `
-          <img src="${movie.thumbnail}" alt="${movie.title}" onclick="playVideo('${movie.video}')" style="cursor:pointer;">
+          <img src="${movie.thumbnail}" alt="${movie.title}" style="cursor:pointer;">
           <h4>${movie.title}</h4>
         `;
+        
+        // Jab image click ho, modal khule
+        card.querySelector("img").addEventListener("click", () => {
+          openModal(movie);
+        });
+
         container.appendChild(card);
       } else {
         console.warn("⚠ Section container not found for:", sectionId);
@@ -171,6 +177,35 @@ function showVideo(url) {
     </iframe>
   `;
   playerSection.scrollIntoView({ behavior: 'smooth' });
+}
+
+// ---------------- Modal Play/Download ----------------
+let selectedVideoUrl = "";
+let selectedDownloadUrl = "";
+
+function openModal(movie) {
+  selectedVideoUrl = movie.video;
+  selectedDownloadUrl = movie.download || movie.video; // Agar JSON me download link alag ho
+
+  document.getElementById("modal-poster").src = movie.thumbnail;
+  document.getElementById("modal-title").innerText = movie.title;
+  document.getElementById("modal-info").innerText = `${movie.year || "2025"} • ${movie.duration || "2h"} • HD`;
+  document.getElementById("modal-description").innerText = movie.description || "No description available.";
+  
+  document.getElementById("movie-modal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("movie-modal").style.display = "none";
+}
+
+function playWithAd() {
+  closeModal();
+  showVideo(selectedVideoUrl);
+}
+
+function downloadMovie() {
+  window.open(selectedDownloadUrl, "_blank");
 }
 </script>
   <script>(function(d,z,s){s.src='https://'+d+'/401/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('groleegni.net',9579411,document.createElement('script'))</script>
